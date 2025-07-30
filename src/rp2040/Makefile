@@ -44,7 +44,7 @@ stage2-$(CONFIG_RP2040_HAVE_STAGE2) := $(OUT)stage2.o
 
 # Set katapult.elf linker rules
 target-y += $(OUT)katapult.uf2
-CFLAGS_katapult.elf += -nostdlib -lgcc -lc_nano
+CFLAGS_katapult.elf += -nostdlib -lgcc -lc_nano -lnosys
 CFLAGS_katapult.elf += -T $(OUT)src/rp2040/rpxxxx_link.ld
 OBJS_katapult.elf += $(stage2-y)
 $(OUT)katapult.elf: $(stage2-y) $(OUT)src/rp2040/rpxxxx_link.ld
@@ -73,6 +73,6 @@ flash: $(OUT)katapult.uf2 lib/rp2040_flash/rp2040_flash
 
 # Deployer build
 deployer-y += generic/armcm_boot.c generic/armcm_reset.c $(mcu-y)
-CFLAGS_deployer.elf += -nostdlib -lgcc -lc_nano
+CFLAGS_deployer.elf += -nostdlib -lgcc -lc_nano -lnosys
 CFLAGS_deployer.elf += -T $(OUT)src/rp2040/rpxxxx_deployer.ld
 $(OUT)deployer.elf: $(OUT)src/rp2040/rpxxxx_deployer.ld

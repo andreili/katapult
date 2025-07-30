@@ -24,7 +24,7 @@ CFLAGS-$(CONFIG_MACH_STM32G4) += -mcpu=cortex-m4 -Ilib/stm32g4/include
 CFLAGS-$(CONFIG_MACH_STM32H7) += -mcpu=cortex-m7 -Ilib/stm32h7/include
 CFLAGS += $(CFLAGS-y) -D$(MCU_UPPER) -mthumb -Ilib/cmsis-core -Ilib/fast-hash
 
-CFLAGS_katapult.elf += -nostdlib -lgcc -lc_nano
+CFLAGS_katapult.elf += -nostdlib -lgcc -lc_nano -lnosys
 CFLAGS_katapult.elf += -T $(OUT)src/generic/armcm_link.ld
 $(OUT)katapult.elf: $(OUT)src/generic/armcm_link.ld
 
@@ -66,6 +66,6 @@ flash: $(OUT)katapult.bin
 
 # Deployer build
 deployer-y += generic/armcm_boot.c generic/armcm_reset.c $(mcu-y)
-CFLAGS_deployer.elf += -nostdlib -lgcc -lc_nano
+CFLAGS_deployer.elf += -nostdlib -lgcc -lc_nano -lnosys
 CFLAGS_deployer.elf += -T $(OUT)src/generic/armcm_deployer.ld
 $(OUT)deployer.elf: $(OUT)src/generic/armcm_deployer.ld
